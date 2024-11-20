@@ -1,12 +1,12 @@
 # nftables
 Firewall
 
-      ----------->
-  TOR              SERVIDOR/USER
-      <-----------
+----------->
+TOR              SERVIDOR/USER
+<-----------
 
 Filter by:
-     MACADDRESS   ------>     IP    -------> PORT
+MACADDRESS   ------>     IP    -------> PORT
 
 Allow only MACADDRESS permited in the PRIVATE NETWORK.
 Allow only IP permited in the PRIVATE NETWORK.
