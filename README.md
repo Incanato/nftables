@@ -1,11 +1,11 @@
 # nftables
 Firewall
 
------------>
+        ----------->
 
-TOR              SERVIDOR/USER
+TOR    ........          SERVIDOR/USER
 
-<-----------
+       <-----------
 
 Filter by:
 MACADDRESS   ------>     IP    -------> PORT
