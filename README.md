@@ -22,11 +22,11 @@ Deny all TOP IP with no specific PORT.
 
 BLOCK/REDIRECT the rest of PROTOCOLS (system, user and protected) not used.
 
-Management:
+# Management:
   Allow only SSH access to specific IP.
   Deny the rest IP in the PRIVATE NETWORK.
 
-Proxy:
+# Proxy:
   Allow only SQUID access to specific IP.
   Deny the rest IP in the PRIVATE NETWORK.
 
