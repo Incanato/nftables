@@ -3,7 +3,7 @@ Firewall
 
            ----------->
 
-TOR                         SERVIDOR/USER
+TOR          ..............          SERVIDOR/USER
 
           <-----------
 
