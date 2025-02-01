@@ -1,15 +1,13 @@
 ## nm-settings-nmcli
+
 ## nm-settings-nmcli — Description of settings and properties of NetworkManager connection profiles for nmcli
 
 ## Description
+
 ## NetworkManager is based on a concept of connection profiles, sometimes referred to as connections only. These connection profiles contain a network configuration. When NetworkManager activates a connection profile on a network device the configuration will be applied and an active network connection will be established. Users are free to create as many connection profiles as they see fit. Thus they are flexible in having various network configurations for different networking needs.
-
 ## NetworkManager provides an API for configuring connection profiles, for activating them to configure the network, and inspecting the current network configuration. The command line tool nmcli is a client application to NetworkManager that uses this API. See nmcli(1) for details.
-
 ## With commands like nmcli connection add, nmcli connection modify and nmcli connection show, connection profiles can be created, modified and inspected. A profile consists of properties. On D-Bus this follows the format as described by nm-settings-dbus(5), while this manual page describes the settings format how they are expected by nmcli.
-
 ## The settings and properties shown in tables below list all available connection configuration options. However, note that not all settings are applicable to all connection types. nmcli connection editor has also a built-in describe command that can display description of particular settings and properties of this page.
-
 ## The setting and property can be abbreviated provided they are unique. The list below also shows aliases that can be used unqualified instead of the full name. For example connection.interface-name and ifname refer to the same property.
 
 [connection]
@@ -22,45 +20,31 @@
 ##     connection.auth-retries
 
 ##          The number of retries for the authentication. Zero means to try indefinitely; -1 means to use a global default. If the global default is not set, the authentication retries for 3 times before failing the connection.
-
 ##          Currently, this only applies to 802-1x authentication.
-
 ##          Format: integer
-
 ##          Valid values: -1 - 2147483647
 
 ##     connection.autoconnect
 
 ##          Alias: autoconnect
-
 ##          Whether or not the connection should be automatically connected by NetworkManager when the resources for the connection are available. TRUE to automatically activate the connection, FALSE to require manual intervention to activate the connection.
-
 ##          Autoconnect happens when the circumstances are suitable. That means for example that the device is currently managed and not active. Autoconnect thus never replaces or competes with an already active profile.
-
 ##          Note that autoconnect is not implemented for VPN profiles. See "secondaries" as an alternative to automatically connect VPN profiles.
-
 ##          If multiple profiles are ready to autoconnect on the same device, the one with the better "connection.autoconnect-priority" is chosen. If the priorities are equal, then the most recently connected profile is activated. If the profiles were not connected earlier or their "connection.timestamp" is identical, the choice is undefined.
-
 ##          Depending on "connection.multi-connect", a profile can (auto)connect only once at a time or multiple times.
-
 ##          Format: boolean
-
 ##          Valid values: true/yes/on, false/no/off
 
 ##     connection.autoconnect-ports
 
 ##          Whether or not ports of this connection should be automatically brought up when NetworkManager activates this connection. This only has a real effect for controller connections. The properties "autoconnect", "autoconnect-priority" and "autoconnect-retries" are unrelated to this setting. The permitted values are: 0: leave port connections untouched, 1: activate all the port connections with this connection, -1: default. If -1 (default) is set, global connection.autoconnect-ports is read to determine the real value. If it is default as well, this fallbacks to 0.
-
 ##          Format: choice (NMTernary)
-
 ##          Valid values: default (-1), false (0), true (1)
 
 ##     connection.autoconnect-priority
 
 ##          The autoconnect priority in range -999 to 999. If the connection is set to autoconnect, connections with higher priority will be preferred. The higher number means higher priority. Defaults to 0. Note that this property only matters if there are more than one candidate profile to select for autoconnect. In case of equal priority, the profile used most recently is chosen.
-
 ##          Format: integer
-
 ##          Valid values: -999 - 999
 
 autoconnect-priority=-999
@@ -68,233 +52,163 @@ autoconnect-priority=-999
 ##     connection.autoconnect-retries
 
 ##          The number of times a connection should be tried when autoactivating before giving up. Zero means forever, -1 means the global default (4 times if not overridden). Setting this to 1 means to try activation only once before blocking autoconnect. Note that after a timeout, NetworkManager will try to autoconnect again.
-
 ##          Format: integer
-
 ##          Valid values: -1 - 2147483647
-
 ##          Special values: default (-1), forever (0)
 
 ##     connection.autoconnect-slaves
 
 ##          Whether or not ports of this connection should be automatically brought up when NetworkManager activates this connection. This only has a real effect for controller connections. The properties "autoconnect", "autoconnect-priority" and "autoconnect-retries" are unrelated to this setting. The permitted values are: 0: leave port connections untouched, 1: activate all the port connections with this connection, -1: default. If -1 (default) is set, global connection.autoconnect-slaves is read to determine the real value. If it is default as well, this fallbacks to 0.
-
 ##          Deprecated 1.46. Use "autoconnect-ports" instead, this is just an alias.
-
 ##          Format: choice (NMSettingConnectionAutoconnectSlaves)
-
 ##          Valid values: default (-1), no (0), yes (1)
 
 ##     connection.controller
 
-##     Alias: controller
-
-##     Interface name of the controller device or UUID of the controller connection.
-
-##     Format: string
+##          Alias: controller
+##          Interface name of the controller device or UUID of the controller connection.
+##          Format: string
 
 ##     connection.dns-over-tls
 
-##     Whether DNSOverTls (dns-over-tls) is enabled for the connection. DNSOverTls is a technology which uses TLS to encrypt dns traffic.
-
-##     The permitted values are: "yes" (2) use DNSOverTls and disabled fallback, "opportunistic" (1) use DNSOverTls but allow fallback to unencrypted resolution, "no" (0) don't ever use DNSOverTls. If unspecified "default" depends on the plugin used. Systemd-resolved uses global setting.
-
-##     This feature requires a plugin which supports DNSOverTls. Otherwise, the setting has no effect. One such plugin is dns-systemd-resolved.
-
-##     Format: choice (NMSettingConnectionDnsOverTls)
-
-##     Valid values: default (-1), no (0), opportunistic (1), yes (2)
+##          Whether DNSOverTls (dns-over-tls) is enabled for the connection. DNSOverTls is a technology which uses TLS to encrypt dns traffic.
+##          The permitted values are: "yes" (2) use DNSOverTls and disabled fallback, "opportunistic" (1) use DNSOverTls but allow fallback to unencrypted resolution, "no" (0) don't ever use DNSOverTls. If unspecified "default" depends on the plugin used. Systemd-resolved uses global setting.
+##          This feature requires a plugin which supports DNSOverTls. Otherwise, the setting has no effect. One such plugin is dns-systemd-resolved.
+##          Format: choice (NMSettingConnectionDnsOverTls)
+##          Valid values: default (-1), no (0), opportunistic (1), yes (2)
 
 ##     connection.down-on-poweroff
 
-##     Whether the connection will be brought down before the system is powered off. The default value is "default" (-1). When the default value is specified, then the global value from NetworkManager configuration is looked up, if not set, it is considered as "no" (0).
-
-##     Format: choice (NMSettingConnectionDownOnPoweroff)
-
-##     Valid values: default (-1), no (0), yes (1)
+##          Whether the connection will be brought down before the system is powered off. The default value is "default" (-1). When the default value is specified, then the global value from NetworkManager configuration is looked up, if not set, it is considered as "no" (0).
+##          Format: choice (NMSettingConnectionDownOnPoweroff)
+##          Valid values: default (-1), no (0), yes (1)
 
 ##     connection.gateway-ping-timeout
 
-##     If greater than zero, delay success of IP addressing until either the timeout is reached, or an IP gateway replies to a ping.
-
-##     Format: integer
-
-##     Valid values: 0 - 600
+##          If greater than zero, delay success of IP addressing until either the timeout is reached, or an IP gateway replies to a ping.
+##          Format: integer
+##          Valid values: 0 - 600
 
 ##     connection.id
 
-##     Alias: con-name
-
-##     A human readable unique identifier for the connection, like "Work Wi-Fi" or "T-Mobile 3G".
-
-##     Format: string
+##          Alias: con-name
+##          A human readable unique identifier for the connection, like "Work Wi-Fi" or "T-Mobile 3G".
+##          Format: string
 
 id=enp0s3
 
 ##     connection.interface-name
 
-##     Alias: ifname
-
-##     The name of the network interface this connection is bound to. If not set, then the connection can be attached to any interface of the appropriate type (subject to restrictions imposed by other settings).
-
-##     For software devices this specifies the name of the created device.
-
-##     For connection types where interface names cannot easily be made persistent (e.g. mobile broadband or USB Ethernet), this property should not be used. Setting this property restricts the interfaces a connection can be used with, and if interface names change or are reordered the connection may be applied to the wrong interface.
-
-##     Format: string
+##          Alias: ifname
+##          The name of the network interface this connection is bound to. If not set, then the connection can be attached to any interface of the appropriate type (subject to restrictions imposed by other settings).
+##          For software devices this specifies the name of the created device.
+##          For connection types where interface names cannot easily be made persistent (e.g. mobile broadband or USB Ethernet), this property should not be used. Setting this property restricts the interfaces a connection can be used with, and if interface names change or are reordered the connection may be applied to the wrong interface.
+##          Format: string
 
 interface-name=enp0s3
 
 ##     connection.lldp
 
-##     Whether LLDP is enabled for the connection.
-
-##     Format: choice (NMSettingConnectionLldp)
-
-##     Valid values: default (-1), disable (0), enable-rx/enable (1)
+##          Whether LLDP is enabled for the connection.
+##          Format: choice (NMSettingConnectionLldp)
+##          Valid values: default (-1), disable (0), enable-rx/enable (1)
 
 ##     connection.llmnr
 
-##     Whether Link-Local Multicast Name Resolution (LLMNR) is enabled for the connection. LLMNR is a protocol based on the Domain Name System (DNS) packet format that allows both IPv4 and IPv6 hosts to perform name resolution for hosts on the same local link.
-
-##     The permitted values are: "yes" (2) register hostname and resolving for the connection, "no" (0) disable LLMNR for the interface, "resolve" (1) do not register hostname but allow resolving of LLMNR host names If unspecified, "default" ultimately depends on the DNS plugin (which for systemd-resolved currently means "yes").
-
-##     This feature requires a plugin which supports LLMNR. Otherwise, the setting has no effect. One such plugin is dns-systemd-resolved.
-
-##     Format: choice (NMSettingConnectionLlmnr)
-
-##     Valid values: default (-1), no (0), resolve (1), yes (2)
+##          Whether Link-Local Multicast Name Resolution (LLMNR) is enabled for the connection. LLMNR is a protocol based on the Domain Name System (DNS) packet format that allows both IPv4 and IPv6 hosts to perform name resolution for hosts on the same local link.
+##          The permitted values are: "yes" (2) register hostname and resolving for the connection, "no" (0) disable LLMNR for the interface, "resolve" (1) do not register hostname but allow resolving of LLMNR host names If unspecified, "default" ultimately depends on the DNS plugin (which for systemd-resolved currently means "yes").
+##          This feature requires a plugin which supports LLMNR. Otherwise, the setting has no effect. One such plugin is dns-systemd-resolved.
+##          Format: choice (NMSettingConnectionLlmnr)
+##          Valid values: default (-1), no (0), resolve (1), yes (2)
 
 ##     connection.master
 
-##     Alias: master
-
-##     Interface name of the controller device or UUID of the controller connection.
-
-##     Deprecated 1.46. Use "controller" instead, this is just an alias.
-
-##     Format: string
+##          Alias: master
+##          Interface name of the controller device or UUID of the controller connection.
+##          Deprecated 1.46. Use "controller" instead, this is just an alias.
+##          Format: string
 
 ##     connection.mdns
 
-##     Whether mDNS is enabled for the connection.
-
-##     The permitted values are: "yes" (2) register hostname and resolving for the connection, "no" (0) disable mDNS for the interface, "resolve" (1) do not register hostname but allow resolving of mDNS host names and "default" (-1) to allow lookup of a global default in NetworkManager.conf. If unspecified, "default" ultimately depends on the DNS plugin.
-
-##     This feature requires a plugin which supports mDNS. Otherwise, the setting has no effect. Currently the only supported DNS plugin is systemd-resolved. For systemd-resolved, the default is configurable via MulticastDNS= setting in resolved.conf.
-
-##     Format: choice (NMSettingConnectionMdns)
-
-##     Valid values: default (-1), no (0), resolve (1), yes (2)
+##          Whether mDNS is enabled for the connection.
+##          The permitted values are: "yes" (2) register hostname and resolving for the connection, "no" (0) disable mDNS for the interface, "resolve" (1) do not register hostname but allow resolving of mDNS host names and "default" (-1) to allow lookup of a global default in NetworkManager.conf. If unspecified, "default" ultimately depends on the DNS plugin.
+##          This feature requires a plugin which supports mDNS. Otherwise, the setting has no effect. Currently the only supported DNS plugin is systemd-resolved. For systemd-resolved, the default is configurable via MulticastDNS= setting in resolved.conf.
+##          Format: choice (NMSettingConnectionMdns)
+##          Valid values: default (-1), no (0), resolve (1), yes (2)
 
 ##     connection.metered
 
 ##     Whether the connection is metered.
-
 ##     When updating this property on a currently activated connection, the change takes effect immediately.
-
 ##     Format: ternary
-
 ##     Valid values: true/yes/on, false/no/off, default/unknown
 
 ##     connection.mptcp-flags
 
 ##     Whether to configure MPTCP endpoints and the address flags. If MPTCP is enabled in NetworkManager, it will configure the addresses of the interface as MPTCP endpoints. Note that IPv4 loopback addresses (127.0.0.0/8), IPv4 link local addresses (169.254.0.0/16), the IPv6 loopback address (::1), IPv6 link local addresses (fe80::/10), IPv6 unique local addresses (ULA, fc00::/7) and IPv6 privacy extension addresses (rfc3041, ipv6.ip6-privacy) will be excluded from being configured as endpoints.
-
 ##     If "disabled" (0x1), MPTCP handling for the interface is disabled and no endpoints are registered.
-
 ##     The "enabled" (0x2) flag means that MPTCP handling is enabled. This flag can also be implied from the presence of other flags.
-
 ##     Even when enabled, MPTCP handling will by default still be disabled unless "/proc/sys/net/mptcp/enabled" sysctl is on. NetworkManager does not change the sysctl and this is up to the administrator or distribution. To configure endpoints even if the sysctl is disabled, "also-without-sysctl" (0x4) flag can be used. In that case, NetworkManager doesn't look at the sysctl and configures endpoints regardless.
-
 ##     Even when enabled, NetworkManager will only configure MPTCP endpoints for a certain address family, if there is a unicast default route (0.0.0.0/0 or ::/0) in the main routing table. The flag "also-without-default-route" (0x8) can override that.
-
 ##     When MPTCP handling is enabled then endpoints are configured with the specified address flags "signal" (0x10), "subflow" (0x20), "backup" (0x40), "fullmesh" (0x80). See ip-mptcp(8) manual for additional information about the flags.
-
 ##     If the flags are zero (0x0), the global connection default from NetworkManager.conf is honored. If still unspecified, the fallback is "enabled,subflow". Note that this means that MPTCP is by default done depending on the "/proc/sys/net/mptcp/enabled" sysctl.
-
 ##     NetworkManager does not change the MPTCP limits nor enable MPTCP via "/proc/sys/net/mptcp/enabled". That is a host configuration which the admin can change via sysctl and ip-mptcp.
-
 ##     Strict reverse path filtering (rp_filter) breaks many MPTCP use cases, so when MPTCP handling for IPv4 addresses on the interface is enabled, NetworkManager would loosen the strict reverse path filtering (1) to the loose setting (2).
-
 ##     Format: flags (NMMptcpFlags)
-
 ##     Valid values: none/default (0x0), disabled (0x1), enabled (0x2), also-without-sysctl (0x4), also-without-default-route (0x8), signal (0x10), subflow (0x20), backup (0x40), fullmesh (0x80)
 
 ##     connection.mud-url
 
 ##     If configured, set to a Manufacturer Usage Description (MUD) URL that points to manufacturer-recommended network policies for IoT devices. It is transmitted as a DHCPv4 or DHCPv6 option. The value must be a valid URL starting with "https://".
-
 ##     The special value "none" is allowed to indicate that no MUD URL is used.
-
 ##     If the per-profile value is unspecified (the default), a global connection default gets consulted. If still unspecified, the ultimate default is "none".
-
 ##     Format: string
 
 ##     connection.multi-connect
 
 ##     Specifies whether the profile can be active multiple times at a particular moment. The value is of type NMConnectionMultiConnect.
-
 ##     Format: choice (NMConnectionMultiConnect)
-
 ##     Valid values: default (0), single (1), manual-multiple (2), multiple (3)
 
 ##     connection.permissions
 
 ##     An array of strings defining what access a given user has to this connection. If this is NULL or empty, all users are allowed to access this connection; otherwise users are allowed if and only if they are in this list. When this is not empty, the connection can be active only when one of the specified users is logged into an active session. Each entry is of the form "[type]:[id]:[reserved]"; for example, "user:dcbw:blah".
-
 ##     At this time only the "user" [type] is allowed. Any other values are ignored and reserved for future use. [id] is the username that this permission refers to, which may not contain the ":" character. Any [reserved] information present must be ignored and is reserved for future use. All of [type], [id], and [reserved] must be valid UTF-8.
-
 ##     Format: list of strings
 
 ##     connection.port-type
 
 ##     Alias: port-type
-
 ##     Setting name of the device type of this port's controller connection (eg, "bond"), or NULL if this connection is not a port.
-
 ##     Format: string
-
 ##     Valid values: bond, bridge, ovs-bridge, ovs-port, team, vrf
 
 ##     connection.secondaries
 
 ##     List of connection UUIDs that should be activated when the base connection itself is activated. Currently, only VPN connections are supported.
-
 ##     Format: list of strings
 
 ##     connection.slave-type
 
 ##     Alias: slave-type
-
 ##     Setting name of the device type of this port's controller connection (eg, "bond"), or NULL if this connection is not a port.
-
 ##     Deprecated 1.46. Use "port-type" instead, this is just an alias.
-
 ##     Format: string
-
 ##     Valid values: bond, bridge, ovs-bridge, ovs-port, team, vrf
 
 ##     connection.stable-id
 
 ##     This represents the identity of the connection used for various purposes. It allows to configure multiple profiles to share the identity. Also, the stable-id can contain placeholders that are substituted dynamically and deterministically depending on the context.
-
 ##     The stable-id is used for generating IPv6 stable private addresses with ipv6.addr-gen-mode=stable-privacy. It is also used to seed the generated cloned MAC address for ethernet.cloned-mac-address=stable and wifi.cloned-mac-address=stable. It is also used to derive the DHCP client identifier with ipv4.dhcp-client-id=stable, the DHCPv6 DUID with ipv6.dhcp-duid=stable-[llt,ll,uuid] and the DHCP IAID with ipv4.iaid=stable and ipv6.iaid=stable.
-
 ##     Note that depending on the context where it is used, other parameters are also seeded into the generation algorithm. For example, a per-host key is commonly also included, so that different systems end up generating different IDs. Or with ipv6.addr-gen-mode=stable-privacy, also the device's name is included, so that different interfaces yield different addresses. The per-host key is the identity of your machine and stored in /var/lib/NetworkManager/secret_key. See NetworkManager(8) manual about the secret-key and the host identity.
-
 ##     The '$' character is treated special to perform dynamic substitutions at activation time. Currently, supported are "${CONNECTION}", "${DEVICE}", "${MAC}", "${NETWORK_SSID}", "${BOOT}", "${RANDOM}". These effectively create unique IDs per-connection, per-device, per-SSID, per-boot, or every time. The "${CONNECTION}" uses the profile's connection.uuid, the "${DEVICE}" uses the interface name of the device and "${MAC}" the permanent MAC address of the device. "${NETWORK_SSID}" uses the SSID for Wi-Fi networks and falls back to "${CONNECTION}" on other networks. Any unrecognized patterns following '$' are treated verbatim, however are reserved for future use. You are thus advised to avoid '$' or escape it as "$$". For example, set it to "${CONNECTION}-${BOOT}-${DEVICE}" to create a unique id for this connection that changes with every reboot and differs depending on the interface where the profile activates.
-
 ##     If the value is unset, a global connection default is consulted. If the value is still unset, the default is "default${CONNECTION}" go generate an ID unique per connection profile.
-
 ##     Format: string
 
 ##     connection.timestamp
 
 ##     The time, in seconds since the Unix Epoch, that the connection was last _successfully_ fully activated.
-
 ##     NetworkManager updates the connection timestamp periodically when the connection is active to ensure that an active connection has the latest timestamp. The property is only meant for reading (changes to this property will not be preserved).
-
 ##     Format: read only
 
 timestamp=1702970976
@@ -302,11 +216,8 @@ timestamp=1702970976
 ##     connection.type
 
 ##     Alias: type
-
 ##     Base type of the connection. For hardware-dependent connections, should contain the setting name of the hardware-type specific setting (ie, "802-3-ethernet" or "802-11-wireless" or "bluetooth", etc), and for non-hardware dependent connections like VPN or otherwise, should contain the setting name of that setting type (ie, "vpn" or "bridge", etc).
-
 ##     Format: string
-
 ##     Valid values: 6lowpan, 802-11-olpc-mesh, 802-11-wireless, 802-3-ethernet, adsl, bluetooth, bond, bridge, cdma, dummy, generic, gsm, hsr, infiniband, ip-tunnel, loopback, macsec, macvlan, ovs-bridge, ovs-dpdk, ovs-interface, ovs-patch, ovs-port, pppoe, team, tun, veth, vlan, vpn, vrf, vxlan, wifi-p2p, wimax, wireguard, wpan
 
 type=ethernet
@@ -314,9 +225,7 @@ type=ethernet
 ##     connection.uuid
 
 ##     The connection.uuid is the real identifier of a profile. It cannot change and it must be unique. It is therefore often best to refer to a profile by UUID, for example with `nmcli connection up uuid $UUID`.
-
 ##     The UUID cannot be changed, except in offline mode. In that case, the special values "new", "generate" and "" are allowed to generate a new random UUID.
-
 ##     Format: a valid RFC4122 universally unique identifier (UUID).
 
 uuid=ff625611-52d4-36bb-8621-28d3affc2d4c
@@ -324,29 +233,21 @@ uuid=ff625611-52d4-36bb-8621-28d3affc2d4c
 ##     connection.wait-activation-delay
 
 ##     Time in milliseconds to wait for connection to be considered activated. The wait will start after the pre-up dispatcher event.
-
 ##     The value 0 means no wait time. The default value is -1, which currently has the same meaning as no wait time.
-
 ##     Format: integer
-
 ##     Valid values: -1 - 2147483647
 
 ##     connection.wait-device-timeout
 
 ##     Timeout in milliseconds to wait for device at startup. During boot, devices may take a while to be detected by the driver. This property will cause to delay NetworkManager-wait-online.service and nm-online to give the device a chance to appear. This works by waiting for the given timeout until a compatible device for the profile is available and managed.
-
 ##     The value 0 means no wait time. The default value is -1, which currently has the same meaning as no wait time.
-
 ##     Format: integer
-
 ##     Valid values: -1 - 2147483647
 
 ##     connection.zone
 
 ##     The trust level of a the connection. Free form case-insensitive string (for example "Home", "Work", "Public"). NULL or unspecified zone means the connection will be placed in the default zone as defined by the firewall.
-
 ##     When updating this property on a currently activated connection, the change takes effect immediately.
-
 ##     Format: string
 
 ## 6lowpan setting
